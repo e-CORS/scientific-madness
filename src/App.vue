@@ -7,7 +7,7 @@ import Concursos from "./components/Concursos.vue";
 import Top10 from "./components/Top10.vue";
 import Tips from "./components/Tips.vue";
 import Historias from "./components/Historias.vue";
-
+import Auth from "./components/Auth.vue";
 import { ref } from "vue";
 const tabs = ref([
   {
@@ -39,27 +39,35 @@ const tabs = ref([
     component: HowTo,
   },
 ]);
+const solvedAuth = ref(false);
 const activeComponent = ref(Diary);
 const setActiveComponent = (component) => {
-  console.log(component);
   activeComponent.value = component;
+};
+const setSolvedAuth = (input) => {
+  if (input.password.toLowerCase() === "i did it") {
+    solvedAuth.value = true;
+  }
 };
 </script>
 
 <template>
   <div class="page-wrapper">
-    <div class="tabs">
-      <Tabs
-        v-for="(tab, index) in tabs"
-        :key="`tab-${index}`"
-        :tab-name="tab.name"
-        :is-active="tab.component === activeComponent"
-        :tab-component="tab.component"
-        @set-active-component="setActiveComponent"
-      />
-    </div>
-    <div class="page-content">
-      <component :is="activeComponent" />
+    <Auth v-if="!solvedAuth" @validInput="setSolvedAuth" />
+    <div v-else>
+      <div class="tabs">
+        <Tabs
+          v-for="(tab, index) in tabs"
+          :key="`tab-${index}`"
+          :tab-name="tab.name"
+          :is-active="tab.component === activeComponent"
+          :tab-component="tab.component"
+          @set-active-component="setActiveComponent"
+        />
+      </div>
+      <div class="page-content">
+        <component :is="activeComponent" />
+      </div>
     </div>
   </div>
 </template>
