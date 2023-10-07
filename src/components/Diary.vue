@@ -50,5 +50,6 @@ const diary = ref([
   justify-content: flex-start;
   align-items: flex-start;
   text-align: left;
+  margin-bottom: 50px;
 }
 </style>
