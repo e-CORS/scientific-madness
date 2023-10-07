@@ -31,7 +31,7 @@ const tabs = ref([
     component: Top10,
   },
   {
-    name: "Concursos de Arruinafiestas",
+    name: "Recuerdos de Arruinafiestas",
     component: Concursos,
   },
   {

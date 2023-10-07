@@ -44,6 +44,7 @@ const artilugios = ref([
   margin-bottom: 10px;
 }
 .artilugio-image {
+  width: 100%;
   margin-right: 50px;
 }
 .artilugio-text {
