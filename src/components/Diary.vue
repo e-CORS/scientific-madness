@@ -45,7 +45,6 @@ const diary = ref([
 }
 .diary-entry {
   flex-grow: 1;
-  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
