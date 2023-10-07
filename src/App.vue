@@ -1,30 +1,82 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import Diary from "./components/Diary.vue";
+import Tabs from "./components/Tabs.vue";
+import Artilugios from "./components/Artilugios.vue";
+import HowTo from "./components/HowTo.vue";
+import Concursos from "./components/Concursos.vue";
+import Top10 from "./components/Top10.vue";
+import Tips from "./components/Tips.vue";
+import Historias from "./components/Historias.vue";
+
+import { ref } from "vue";
+const tabs = ref([
+  {
+    name: "Diario",
+    component: Diary,
+  },
+  {
+    name: "Artilugios Arruinafiestas",
+    component: Artilugios,
+  },
+  {
+    name: "Historias de Hazañas",
+    component: Historias,
+  },
+  {
+    name: "Tips para Fiestas",
+    component: Tips,
+  },
+  {
+    name: "Top 10 ideas para arruinar fiestas",
+    component: Top10,
+  },
+  {
+    name: "Concursos de Arruinafiestas",
+    component: Concursos,
+  },
+  {
+    name: "Como hacer que la gente me quiera",
+    component: HowTo,
+  },
+]);
+const activeComponent = ref(Diary);
+const setActiveComponent = (component) => {
+  console.log(component);
+  activeComponent.value = component;
+};
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="page-wrapper">
+    <div class="tabs">
+      <Tabs
+        v-for="(tab, index) in tabs"
+        :key="`tab-${index}`"
+        :tab-name="tab.name"
+        :is-active="tab.component === activeComponent"
+        :tab-component="tab.component"
+        @set-active-component="setActiveComponent"
+      />
+    </div>
+    <div class="page-content">
+      <component :is="activeComponent" />
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.page-wrapper {
+  width: 100vw;
+  height: 100vh;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0 0 60px 0;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.page-content {
+  padding: 40px;
 }
 </style>
